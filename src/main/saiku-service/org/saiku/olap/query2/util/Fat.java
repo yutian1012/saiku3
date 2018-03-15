@@ -1,7 +1,6 @@
 package org.saiku.olap.query2.util;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.saiku.olap.query2.ThinAxis;
 import org.saiku.olap.query2.ThinCalculatedMeasure;
 import org.saiku.olap.query2.ThinCalculatedMember;
@@ -32,7 +31,6 @@ import org.saiku.query.mdx.NameFilter;
 import org.saiku.query.mdx.NameLikeFilter;
 import org.saiku.query.metadata.CalculatedMeasure;
 import org.saiku.query.metadata.CalculatedMember;
-
 import org.olap4j.Axis;
 import org.olap4j.OlapException;
 import org.olap4j.impl.IdentifierParser;
@@ -51,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import mondrian.olap.Member.MemberType;
 import mondrian.olap4j.SaikuMondrianHelper;
 
 public class Fat {
@@ -96,16 +95,12 @@ public class Fat {
 					  break;
 				  }
 			  }
-			  CalculatedMember cm =
-					  new CalculatedMember(
-                                                    h.getDimension(),
-                                                    h,
-							  qcm.getName(),
+			  CalculatedMember cm =new CalculatedMember(h.getDimension(),h,qcm.getName(),
 							  null,
 							  null,
 							  Member.Type.FORMULA,
 							  qcm.getFormula(),
-							  qcm.getProperties());
+							  qcm.getProperties(),true);
 
 			  q.addCalculatedMember(q.getHierarchy(h),cm);
 		  }
@@ -362,9 +357,9 @@ public class Fat {
 					member,
 					Member.Type.FORMULA,
 					cres.getFormula(),
-					null);
+					null,true);
 
-			qh.includeCalculatedMember(cm);
+			qh.includeCalculatedMember(cm,true);
 			extendSortableQuerySet(qh.getQuery(), qh, th);
 
 		}

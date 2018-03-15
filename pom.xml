@@ -33,56 +33,77 @@
 		<serenity.version>1.0.58</serenity.version>
 		<jbehave.version>3.9.3</jbehave.version>
 	</properties>
-	<pluginRepositories>
-		<!--add by liuyg <pluginRepository> <id>Analytical Labs Plugin Repo</id> 
-			<name>Analytical Labs Repo-releases</name> <url>http://repo.meteorite.bi/content/repositories/alabs-release-local/</url> 
-			</pluginRepository> -->
-		<pluginRepository>
-			<id>mine</id>
-			<name>public Releases</name>
-			<layout>default</layout>
-			<url>http://nexus.liuyingguang.cn:8081/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
+	
 
 	<repositories>
-		<!-- add by liuyg <repository> <id>Analytical Labs Repo</id> <name>Analytical 
-			Labs Repo-releases</name> <url>http://repo.meteorite.bi/content/repositories/alabs-release-local/</url> 
-			</repository> <repository> <id>Analytical Labs snapshots</id> <name>Analytical 
-			Labs Repo-releases</name> <url>http://repo.meteorite.bi/content/repositories/alabs-snapshot-local/</url> 
-			</repository> <repository> <id>pentaho-third-party</id> <url>http://nexus.pentaho.org/content/repositories/proxied-3rd-party-releases/</url> 
-			</repository> <repository> <id>pentaho-public-release</id> <url>http://nexus.pentaho.org/content/repositories/pentaho-public-release-repos/</url> 
-			</repository> <repository> <id>pentaho-snapshot</id> <url>http://nexus.pentaho.org/content/repositories/public-snapshots/</url> 
-			</repository> -->
-		<!--<repository> <id>atlassian2</id> <url>http://repository.opencastproject.org/</url> 
-			</repository> -->
 		<repository>
-			<id>mine</id>
-			<name>public Releases</name>
-			<layout>default</layout>
-			<url>http://nexus.liuyingguang.cn:8081/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>mine-meteorite-bi-release</id>
-			<name>public Releases</name>
-			<layout>default</layout>
-			<url>http://nexus.liuyingguang.cn:8081/content/repositories/meteorite-bi-release/</url>
-		</repository>
+            <id>Analytical Labs Repo</id>
+            <name>Analytical Labs Repo-releases</name>
+            <url>http://repo.meteorite.bi/repository/alabs-release-local/</url>
+        </repository>
+        <repository>
+            <id>Analytical Labs snapshots</id>
+            <name>Analytical Labs Repo-releases</name>
+            <url>http://repo.meteorite.bi/repository/alabs-snapshot-local/</url>
+        </repository>
+        <repository>
+            <id>pentaho-third-party</id>
+            <url>http://nexus.pentaho.org/content/repositories/proxied-3rd-party-releases/</url>
+        </repository>
+        <repository>
+            <id>pentaho-public-release</id>
+            <url>http://nexus.pentaho.org/content/repositories/pentaho-public-release-repos/</url>
+        </repository>
+        <repository>
+            <id>pentaho-snapshot</id>
+            <url>http://nexus.pentaho.org/content/repositories/public-snapshots/</url>
+        </repository>
+        <!--<repository>
+            <id>atlassian2</id>
+            <url>http://repository.opencastproject.org/</url>
+        </repository>-->
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>apache</id>
+            <name>Apache repo</name>
+            <layout>default</layout>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 
-		<repository>
-			<id>central</id>
-			<name>Maven Repository Switchboard</name>
-			<layout>default</layout>
-			<url>http://repo1.maven.org/maven2</url>
-			<!-- <snapshots> modify by liuyg <enabled>false</enabled> </snapshots> -->
-		</repository>
-		<!--add by liuyg <repository> <id>apache</id> <name>Apache repo</name> 
-			<layout>default</layout> <url>https://repository.apache.org/content/repositories/snapshots/</url> 
-			<snapshots> <enabled>true</enabled> </snapshots> </repository> -->
+        <repository>
+            <id>atlassian</id>
+            <name>Atlassian Public</name>
+            <layout>default</layout>
+            <url>https://maven.atlassian.com/content/repositories/atlassian-public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 
-		<!-- add by liuyg<repository> <id>atlassian</id> <name>Atlassian Public</name> 
-			<layout>default</layout> <url>https://maven.atlassian.com/content/repositories/atlassian-public</url> 
-			<snapshots> <enabled>true</enabled> </snapshots> </repository> -->
+    	<repository>
+    		<id>pentaho-releases</id>
+    		<url>http://repository.pentaho.org/artifactory/repo/</url>
+    	</repository>
+
+        <repository>
+            <id>miredot</id>
+            <url>http://nexus.qmino.com/content/repositories/miredot/</url>
+        </repository>
+        <repository>
+            <id>clojars</id>
+            <url>http://clojars.org/repo/</url>
+        </repository>
 	</repositories>
 
 	<!-- <issueManagement> <system>JIRA</system> <url>http://jira.meteorite.bi/browse/SKU</url> 
@@ -329,16 +350,16 @@
 			<artifactId>batik-js</artifactId>
 			<version>1.7</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>batik</groupId>
 			<artifactId>batik-transcoder</artifactId>
 			<version>1.7</version>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 			<groupId>batik</groupId>
 			<artifactId>batik-ext</artifactId>
 			<version>1.7</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.apache.jackrabbit</groupId>
 			<artifactId>jackrabbit-core</artifactId>
@@ -385,10 +406,15 @@
 			<artifactId>jbehave-core</artifactId>
 			<version>${jbehave.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>mondrian-data-foodmart-hsql</groupId>
 			<artifactId>mondrian-data-foodmart-hsql</artifactId>
 			<version>0.1</version>
+		</dependency> -->
+		<dependency>
+			<groupId>pentaho</groupId>
+			<artifactId>mondrian-data-foodmart-hsqldb</artifactId>
+			<version>0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -450,12 +476,12 @@
 		<dependency>
 			<groupId>org.saiku</groupId>
 			<artifactId>saiku-query</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>pentaho</groupId>
 			<artifactId>mondrian</artifactId>
-			<version>4.3.0.1-SPARK</version>
+			<version>4.3.0.1.1-SPARK</version>
 		</dependency>
 		<!-- Spring modules -->
 		<dependency>
@@ -1060,6 +1086,14 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>jdk.tools</groupId>
+		    <artifactId>jdk.tools</artifactId>
+		    <version>1.8</version>
+		    <scope>system</scope>
+		    <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
 		</dependency>
 	</dependencies>
 	

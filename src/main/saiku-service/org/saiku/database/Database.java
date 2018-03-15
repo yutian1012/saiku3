@@ -1,16 +1,16 @@
 package org.saiku.database;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.io.FileUtils;
-
 import org.saiku.datasources.datasource.SaikuDatasource;
 import org.saiku.service.datasource.IDatasourceManager;
 import org.saiku.service.importer.LegacyImporter;
 import org.saiku.service.importer.LegacyImporterImpl;
-
 import org.h2.jdbcx.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.File;
@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
+import javax.sql.DataSource;
 
 
 /**
@@ -39,7 +40,8 @@ public class Database {
     @Autowired
     ServletContext servletContext;
 
-    private JdbcDataSource ds;
+    //private JdbcDataSource ds;
+    private BasicDataSource ds;
     private static final Logger log = LoggerFactory.getLogger(Database.class);
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private IDatasourceManager dsm;
@@ -62,7 +64,7 @@ public class Database {
     public void init() throws SQLException {
         initDB();
         loadUsers();
-        loadFoodmart();
+        //loadFoodmart();
         //loadEarthquakes();
         loadLegacyDatasources();
     }
@@ -71,9 +73,14 @@ public class Database {
         String url = servletContext.getInitParameter("db.url");
         String user = servletContext.getInitParameter("db.user");
         String pword = servletContext.getInitParameter("db.password");
-        ds = new JdbcDataSource();
-        ds.setURL(url);
-        ds.setUser(user);
+        /*ds = new JdbcDataSource();
+         ds.setURL(url);
+	     ds.setUser(user);
+	     ds.setPassword(pword);
+        */
+        ds=new BasicDataSource();
+        ds.setUrl(url);
+        ds.setUsername(user);
         ds.setPassword(pword);
     }
 
@@ -224,7 +231,8 @@ public class Database {
         Connection c = ds.getConnection();
 
         Statement statement = c.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS LOG(time TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL, log CLOB);");
+        //statement.execute("CREATE TABLE IF NOT EXISTS LOG(time TIMESTAMP AS CURRENT_TIMESTAMP NOT NULL, log CLOB);");
+        statement.execute("CREATE TABLE IF NOT EXISTS LOG(c_time TIMESTAMP NOT NULL, log TEXT);");
 
         statement.execute("CREATE TABLE IF NOT EXISTS USERS(user_id INT(11) NOT NULL AUTO_INCREMENT, " +
                 "username VARCHAR(45) NOT NULL UNIQUE, password VARCHAR(100) NOT NULL, email VARCHAR(100), " +
@@ -241,7 +249,7 @@ public class Database {
         if (result.getInt("c") == 0) {
             dsm.createUser("admin");
             dsm.createUser("smith");
-            statement.execute("INSERT INTO users(username,password,email, enabled)\n"
+            /*statement.execute("INSERT INTO users(username,password,email, enabled)\n"
                     + "VALUES ('admin','admin', 'test@admin.com',TRUE);" +
                     "INSERT INTO users(username,password,enabled)\n"
                     + "VALUES ('smith','smith', TRUE);");
@@ -251,7 +259,13 @@ public class Database {
                             "INSERT INTO user_roles (user_id, username, ROLE)\n"
                             + "VALUES (1, 'admin', 'ROLE_ADMIN');" +
                             "INSERT INTO user_roles (user_id, username, ROLE)\n"
-                            + "VALUES (2, 'smith', 'ROLE_USER');");
+                            + "VALUES (2, 'smith', 'ROLE_USER');");*/
+            statement.execute("INSERT INTO users(username,password,email, enabled) VALUES ('admin','admin', 'test@admin.com',TRUE);");
+            statement.execute("INSERT INTO users(username,password,enabled) VALUES ('smith','smith', TRUE);");
+            
+            statement.execute("INSERT INTO user_roles (user_id, username, ROLE) VALUES (1, 'admin', 'ROLE_USER');");
+            statement.execute("INSERT INTO user_roles (user_id, username, ROLE) VALUES (1, 'admin', 'ROLE_ADMIN');");
+            statement.execute("INSERT INTO user_roles (user_id, username, ROLE) VALUES (2, 'smith', 'ROLE_USER');");
 
             statement.execute("INSERT INTO LOG(log) VALUES('insert users');");
         }
@@ -278,7 +292,8 @@ public class Database {
         Connection c = ds.getConnection();
 
         Statement statement = c.createStatement();
-        statement.execute("ALTER TABLE users ALTER COLUMN password VARCHAR(100) DEFAULT NULL");
+        //statement.execute("ALTER TABLE users ALTER COLUMN password VARCHAR(100) DEFAULT NULL");
+        statement.execute("ALTER TABLE users modify COLUMN password VARCHAR(100) DEFAULT NULL");
 
         ResultSet result = statement.executeQuery("select username, password from users");
 
