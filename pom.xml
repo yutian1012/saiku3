@@ -7,12 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>saiku Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<distributionManagement><!--add by liuyg -->
-		<snapshotRepository>
-			<id>snapshots-host</id>
-			<url>http://nexus.liuyingguang.cn:8081/content/repositories/snapshots-host/</url>
-		</snapshotRepository>
-	</distributionManagement>
+	
 	<properties>
 		<saiku.version>3.8-RC5</saiku.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
